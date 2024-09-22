@@ -22,9 +22,10 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    /*
     //==연관관계 편의 메서드==//
     public void setCategory(Category category) {
         this.category = category;
         category.getPosts().add(this);
-    }
+    }*/
 }
