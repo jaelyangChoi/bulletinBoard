@@ -7,10 +7,7 @@ import com.example.bulletinBoard.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,4 +42,10 @@ public class PostController {
         return "redirect:/board/list";
     }
 
+    @GetMapping("/view/{postId}")
+    public String view(@PathVariable("postId") Long postId, Model model) {
+        Post post = postService.findOne(postId);
+        model.addAttribute("post", post);
+        return "board/view";
+    }
 }

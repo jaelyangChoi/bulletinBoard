@@ -71,4 +71,9 @@ public class PostService {
     private void validateTitle(String title) {
         //유효성 검사에 문제가 있을 시 ex throw
     }
+
+    public Post findOne(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 게시글 ID 입니다."));
+    }
 }
