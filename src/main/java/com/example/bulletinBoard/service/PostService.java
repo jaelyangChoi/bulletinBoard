@@ -16,16 +16,13 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class PostService {
     private final PostRepository postRepository;
-    private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
 
     @Transactional
-    public Long createPost(PostForm form) {
+    public Long createPost(PostForm form, Member member) {
         //유효성 검사
         Category category = baseValidation(form);
 
-        Member member = memberRepository.findById(form.getAuthorId())
-                .orElseThrow(() -> new IllegalStateException("등록되지 않은 회원 ID 입니다."));
         //등록
         Post post = form.toEntity(member, category);
         postRepository.save(post);

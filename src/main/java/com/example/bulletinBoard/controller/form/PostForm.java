@@ -10,7 +10,6 @@ import lombok.Setter;
 public class PostForm {
     private String title;
     private String content;
-    private Long authorId;
     private Long categoryId;
     private Character secretYN;
 

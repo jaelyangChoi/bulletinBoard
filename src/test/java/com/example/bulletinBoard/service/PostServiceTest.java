@@ -37,14 +37,13 @@ class PostServiceTest {
         em.persist(member);
 
         //then : 카테고리, 멤버가 등록되지 않으면 예외 발생
-        assertThatThrownBy(()->postService.createPost(form))
+        assertThatThrownBy(()->postService.createPost(form, member))
                 .isInstanceOf(IllegalStateException.class);
 
         //then : 등록 후 정상 처리
-        form.setAuthorId(member.getId());
         form.setCategoryId(category.getId());
 
-        Long savedId = postService.createPost(form);
+        Long savedId = postService.createPost(form, member);
         Post findPost = postRepository.findById(savedId).orElseThrow();
 
         assertThat(savedId).isEqualTo(findPost.getId());
@@ -70,7 +69,7 @@ class PostServiceTest {
         List<Post> byMember = postService.findByMember(member1.getId());
         PostSearch postSearch = new PostSearch();
         postSearch.setTitle("itl");
-        List<Post> bySearchCond = postService.findAll(postSearch);
+        List<Post> bySearchCond = postService.findByCondition(postSearch);
 
         //then
         assertThat(byMember.size()).isEqualTo(2);
