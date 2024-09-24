@@ -1,6 +1,6 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.PostForm;
+import com.example.bulletinBoard.controller.form.PostForm;
 import com.example.bulletinBoard.domain.Category;
 import com.example.bulletinBoard.domain.Member;
 import com.example.bulletinBoard.domain.MemberRole;

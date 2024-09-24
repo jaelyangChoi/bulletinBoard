@@ -10,6 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
+@Getter
 public abstract class BaseEntity {
     @Column(updatable = false)
     private String createdBy;

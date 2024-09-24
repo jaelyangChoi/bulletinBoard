@@ -1,8 +1,7 @@
-package com.example.bulletinBoard.controller;
+package com.example.bulletinBoard.controller.form;
 
 import com.example.bulletinBoard.domain.Member;
 import com.example.bulletinBoard.domain.MemberRole;
-import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
 

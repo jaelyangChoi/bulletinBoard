@@ -1,9 +1,8 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.MemberForm;
+import com.example.bulletinBoard.controller.form.MemberForm;
 import com.example.bulletinBoard.domain.Member;
 import com.example.bulletinBoard.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

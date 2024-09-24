@@ -1,6 +1,6 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.CategoryForm;
+import com.example.bulletinBoard.controller.form.CategoryForm;
 import com.example.bulletinBoard.domain.Category;
 import com.example.bulletinBoard.repository.CategoryRepository;
 import jakarta.persistence.EntityManager;

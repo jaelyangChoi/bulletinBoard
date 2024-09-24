@@ -1,4 +1,4 @@
-package com.example.bulletinBoard.controller;
+package com.example.bulletinBoard.controller.form;
 
 import com.example.bulletinBoard.domain.Category;
 import com.example.bulletinBoard.domain.Member;

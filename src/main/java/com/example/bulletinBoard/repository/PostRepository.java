@@ -29,6 +29,11 @@ public class PostRepository {
         return Optional.ofNullable(post);
     }
 
+    public List<Post> findAll() {
+        return em.createQuery("select p from Post p join fetch p.author", Post.class)
+                .getResultList();
+    }
+
     public List<Post> findBySearchCond(PostSearch cond) {
         String jpql = "select p from Post p";
         boolean isFirstCondition = true;

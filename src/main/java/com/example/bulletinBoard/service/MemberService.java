@@ -1,6 +1,6 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.MemberForm;
+import com.example.bulletinBoard.controller.form.MemberForm;
 import com.example.bulletinBoard.domain.Member;
 import com.example.bulletinBoard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

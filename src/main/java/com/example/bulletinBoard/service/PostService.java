@@ -1,6 +1,6 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.PostForm;
+import com.example.bulletinBoard.controller.form.PostForm;
 import com.example.bulletinBoard.domain.Category;
 import com.example.bulletinBoard.domain.Member;
 import com.example.bulletinBoard.domain.Post;
@@ -46,7 +46,11 @@ public class PostService {
         return post;
     }
 
-    public List<Post> findAll(PostSearch postSearch) {
+    public List<Post> findAll() {
+        return postRepository.findAll();
+    }
+
+    public List<Post> findByCondition(PostSearch postSearch) {
         return postRepository.findBySearchCond(postSearch);
     }
 
