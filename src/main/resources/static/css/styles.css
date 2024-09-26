@@ -1,0 +1,96 @@
+/* 기본 설정 */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* 전체 레이아웃을 위한 설정 */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 화면 전체 높이를 차지 */
+}
+
+/* 헤더 */
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+/* 메인 컨텐츠 컨테이너 */
+.container-fluid {
+    flex: 1;
+    padding: 0;
+}
+
+/* 사이드바 */
+#sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh; /* 화면 전체 높이 */
+    padding-top: 20px;
+    background-color: #f8f9fa;
+}
+
+.sidebar-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #0056b3;
+}
+
+.category-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+.category-link {
+    font-size: 1.1rem;
+    padding: 10px;
+    color: #007bff;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.category-link:hover {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+}
+
+.category-link.active {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* 메인 컨텐츠 */
+main {
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: calc(100vh - 56px - 56px); /* 화면 높이에서 헤더와 푸터 높이를 제외 */
+}
+
+/* 푸터 */
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    margin-top: auto; /* 푸터가 항상 페이지 하단에 위치 */
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    #sidebar {
+        position: relative;
+        height: auto;
+    }
+
+    main {
+        margin-left: 0;
+    }
+}

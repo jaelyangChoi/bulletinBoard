@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<section>
+    <div class="container" th:object="${post}">
+        <h1 class="mt-5" th:text="*{title}">게시글 제목</h1>
+
+        <div class="mb-3">
+            <span class="text-muted">작성자: </span><span th:text="*{author.name}">작성자명</span>
+        </div>
+
+        <div class="mb-3">
+            <span class="text-muted">작성일: </span><span th:text="*{#temporals.format(createdAt, 'yyyy-MM-dd')}">2024-01-01</span>
+        </div>
+
+        <div class="mb-3">
+            <span class="text-muted">조회수: </span><span th:text="*{secretYN}">비밀글 여부</span>
+        </div>
+        <hr>
+        <div th:utext="*{content}">
+            <!-- 게시글 내용 -->
+        </div>
+        <hr>
+        <!-- 수정, 삭제 버튼 -->
+        <div class="d-flex justify-content-end">
+            <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-warning me-2">수정</a>
+            <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-danger">삭제</a>
+            <a th:href="@{/posts/list}" class="btn btn-secondary">목록으로</a>
+        </div>
+    </div>
+</section>
+</body>
+</html>

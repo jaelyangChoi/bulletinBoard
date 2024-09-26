@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html th:replace="~{layout/layout :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
+<body>
+<section>
+    <div class="content">
+        <h3 class="mt-5" th:text="${title}">새 글 작성</h3>
+        <br>
+
+        <!-- 게시글 작성 폼 -->
+        <form th:action="@{/posts/write}" method="post" th:object="${postForm}">
+            <input type="hidden" th:field="*{categoryId}"/>
+            <input type="hidden" th:field="*{secretYN}"/>
+            <div class="mb-3">
+                <label th:for="title" class="form-label">제목</label>
+                <input type="text" th:field="*{title}" class="form-control" placeholder="제목을 입력하세요" required>
+            </div>
+
+            <div class="mb-3">
+                <label th:for="content" class="form-label">내용</label>
+                <textarea th:field="*{content}" class="form-control" rows="15" placeholder="내용을 입력하세요"
+                          required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">작성 완료</button>
+            <a th:href="@{/posts}" class="btn btn-secondary">취소</a>
+        </form>
+    </div>
+</section>
+</body>
+</html>

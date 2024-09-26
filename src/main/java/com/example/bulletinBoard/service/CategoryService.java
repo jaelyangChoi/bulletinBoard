@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /*
 ADMIN 사용자는 카테고리를 관리할 수 있다.
 카테고리를 생성할 때 부모가 있는 경우 추가
@@ -30,5 +32,9 @@ public class CategoryService {
 
         categoryRepository.save(category);
         return category.getId();
+    }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
     }
 }
