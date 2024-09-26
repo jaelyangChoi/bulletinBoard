@@ -3,6 +3,7 @@
 <body>
 <section>
     <div class="container" th:object="${post}">
+        <h3 th:if="${param.status}" th:text="'저장 완료'"></h3>
         <h1 class="mt-5" th:text="*{title}">게시글 제목</h1>
 
         <div class="mb-3">
@@ -14,7 +15,7 @@
         </div>
 
         <div class="mb-3">
-            <span class="text-muted">조회수: </span><span th:text="*{secretYN}">비밀글 여부</span>
+            <span class="text-muted">비밀글 여부: </span><span th:text="*{secretYN}">N</span>
         </div>
         <hr>
         <div th:utext="*{content}">

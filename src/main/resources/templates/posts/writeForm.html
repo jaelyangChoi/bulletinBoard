@@ -3,11 +3,13 @@
 <body>
 <section>
     <div class="content">
-        <h3 class="mt-5" th:text="${title}">새 글 작성</h3>
+        <h3 class="mt-5" th:text="${isEdit}?'수정':'새 글 작성'">새 글 작성</h3>
         <br>
 
         <!-- 게시글 작성 폼 -->
-        <form th:action="@{/posts/write}" method="post" th:object="${postForm}">
+        <form th:action="${isEdit} ? @{'/posts/edit/'+${postId}} : @{/posts/write}"
+              th:method="${isEdit} ? 'put' : 'post'"
+              th:object="${postForm}">
             <input type="hidden" th:field="*{categoryId}"/>
             <input type="hidden" th:field="*{secretYN}"/>
             <div class="mb-3">
@@ -21,7 +23,7 @@
                           required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-success">작성 완료</button>
+            <button type="submit" class="btn btn-success">완료</button>
             <a th:href="@{/posts}" class="btn btn-secondary">취소</a>
         </form>
     </div>

@@ -41,7 +41,6 @@ public class Post extends BaseEntity {
         this.title = dto.getTitle();
         this.content = dto.getContent();
         this.secretYN = dto.getSecretYN();
-        this.category = dto.getCategory();
     }
     /*
     //==연관관계 편의 메서드==//

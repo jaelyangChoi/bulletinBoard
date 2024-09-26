@@ -11,5 +11,4 @@ public class PostUpdateDto {
     private String title;
     private String content;
     private Character secretYN;
-    private Category category;
 }

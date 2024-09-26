@@ -37,14 +37,14 @@ public class PostService {
         //업데이트
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("등록되지 않은 게시글 입니다."));
-        PostUpdateDto dto = new PostUpdateDto(form.getTitle(), form.getTitle(), form.getSecretYN(), category);
+        PostUpdateDto dto = new PostUpdateDto(form.getTitle(), form.getContent(), form.getSecretYN());
         post.update(dto);
 
         return post;
     }
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public List<Post> findAll(Long categoryId) {
+        return postRepository.findAll(categoryId);
     }
 
     public List<Post> findByCondition(PostSearch postSearch) {
