@@ -20,14 +20,14 @@ public class HomeController {
 
     private final PostRepository postRepository;
 
-    @GetMapping("/")
+    @GetMapping(value = {"/", "/login.do"})
     public String home(Model model) {
         log.info("home controller");
         Category category = new Category("name", "description");
         Post post = new Post("title", "content", new Member("name", "email@naver.com", "pass", MemberRole.ADMIN), category, 'Y');
         model.addAttribute("posts", List.of(post));
         model.addAttribute("categories", List.of(category));
-        return "layout";
+        return "home";
     }
 
 

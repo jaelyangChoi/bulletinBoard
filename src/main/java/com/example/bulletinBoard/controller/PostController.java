@@ -30,9 +30,8 @@ public class PostController {
         return categoryService.findAll();
     }
 
-    @GetMapping("/{categoryId}")
-    public String getPosts(@PathVariable("categoryId") Long categoryId, Model model) {
-
+    @GetMapping("")
+    public String getPosts(@RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
         List<Post> posts = postService.findAll(categoryId);
         model.addAttribute("posts", posts);
         model.addAttribute("categoryId", categoryId);
