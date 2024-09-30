@@ -16,4 +16,13 @@ public class PostForm {
     public Post toEntity(Member member, Category category) {
         return new Post(title, content, member, category, secretYN);
     }
+
+    public static PostForm fromEntity(Post post) {
+        PostForm postForm = new PostForm();
+        postForm.setTitle(post.getTitle());
+        postForm.setContent(post.getContent());
+        postForm.setSecretYN(post.getSecretYN());
+        postForm.setCategoryId(post.getCategory().getId());
+        return postForm;
+    }
 }

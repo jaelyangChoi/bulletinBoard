@@ -1,20 +1,14 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>게시판</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<html th:replace="~{layout/layout :: layout(~{::section})}" xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="content">
-    <h1 class="mt-5">게시판</h1>
-
-    <!-- 게시글 작성 버튼 -->
-    <div class="my-3">
-        <a th:href="@{/board/post}" class="btn btn-primary">새 글 작성</a>
-    </div>
-
+<section>
+    <th:block th:object="${category}">
+        <h2 class="mt-4 title" th:text="*{name}">카테고리 명</h2>
+        <!-- 게시글 작성 버튼 -->
+        <div class="my-3">
+            <a th:href="@{/board/write/{categoryId}(categoryId=*{id})}" class="btn btn-primary">새 글 작성</a>
+        </div>
+    </th:block>
     <!-- 게시판 리스트 테이블 -->
     <table class="table table-hover">
         <thead class="thead-light">
@@ -39,8 +33,27 @@
         </tr>
         </tbody>
     </table>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 페이지네이션
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${page.number == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{/board/list(page=${page.number - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(1, page.totalPages)}"
+                th:classappend="${i == page.number} ? 'active'">
+                <a class="page-link" th:href="@{/board/list(page=${i})}" th:text="${i}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${page.number == page.totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/board/list(page=${page.number + 1})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>-->
+
+</section>
 </body>
 </html>

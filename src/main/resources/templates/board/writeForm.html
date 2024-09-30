@@ -3,12 +3,11 @@
 <body>
 <section>
     <div class="content">
-        <h3 class="mt-5" th:text="${isEdit}?'수정':'새 글 작성'">새 글 작성</h3>
+        <h3 class="mt-5 title" th:text="${isEdit}?'수정':'새 글 작성'">새 글 작성</h3>
         <br>
 
         <!-- 게시글 작성 폼 -->
-        <form th:action="${isEdit} ? @{'/posts/edit/'+${postId}} : @{/posts/write}"
-              th:method="${isEdit} ? 'put' : 'post'"
+        <form th:action="${isEdit} ? @{'/board/edit/'+ ${postId}} : @{/board/write}" method = "post"
               th:object="${postForm}">
             <input type="hidden" th:field="*{categoryId}"/>
             <input type="hidden" th:field="*{secretYN}"/>
@@ -24,7 +23,7 @@
             </div>
 
             <button type="submit" class="btn btn-success">완료</button>
-            <a th:href="@{/posts}" class="btn btn-secondary">취소</a>
+            <a th:href="@{/board}" class="btn btn-secondary">취소</a>
         </form>
     </div>
 </section>

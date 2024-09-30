@@ -3,8 +3,8 @@
 <body>
 <section>
     <div class="container" th:object="${post}">
-        <h3 th:if="${param.status}" th:text="'저장 완료'"></h3>
-        <h1 class="mt-5" th:text="*{title}">게시글 제목</h1>
+        <h4 th:if="${param.status}" th:text="'저장 완료'" style="color: #007bff;"></h4>
+        <h1 class="mt-5 title" th:text="*{title}">게시글 제목</h1>
 
         <div class="mb-3">
             <span class="text-muted">작성자: </span><span th:text="*{author.name}">작성자명</span>
@@ -24,9 +24,9 @@
         <hr>
         <!-- 수정, 삭제 버튼 -->
         <div class="d-flex justify-content-end">
-            <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="btn btn-warning me-2">수정</a>
-            <a th:href="@{/posts/delete/{id}(id=${post.id})}" class="btn btn-danger">삭제</a>
-            <a th:href="@{/posts/list}" class="btn btn-secondary">목록으로</a>
+            <a th:href="@{/board/edit/{postId}(postId=${post.id})}" class="btn btn-warning me-2 mr-1">수정</a>
+            <a th:href="@{/board/delete/{categoryId}/{postId}(categoryId = ${post.category.id}, postId=${post.id})}" class="btn btn-danger mr-1">삭제</a>
+            <a th:href="@{/board/list}" class="btn btn-secondary">목록으로</a>
         </div>
     </div>
 </section>

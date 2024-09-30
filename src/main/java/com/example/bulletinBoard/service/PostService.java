@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +42,13 @@ public class PostService {
         post.update(dto);
 
         return post;
+    }
+
+    @Transactional
+    public void deletePost(Long postId) {
+        Post findPost = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 게시글 입니다."));
+        postRepository.delete(findPost);
     }
 
     public List<Post> findAll(Long categoryId) {

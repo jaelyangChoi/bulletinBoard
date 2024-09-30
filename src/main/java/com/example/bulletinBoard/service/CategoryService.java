@@ -34,6 +34,11 @@ public class CategoryService {
         return category.getId();
     }
 
+    public Category findOne(Long categoryId) {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalStateException("등록되지 않은 카테고리 ID 입니다."));
+    }
+
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }

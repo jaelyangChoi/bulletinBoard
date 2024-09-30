@@ -12,6 +12,10 @@ html, body {
     min-height: 100vh; /* 화면 전체 높이를 차지 */
 }
 
+.title {
+    color: navy;
+}
+
 /* 헤더 */
 header {
     background-color: #007bff;

@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/posts")
+@RequestMapping("/board")
 public class PostController {
 
     private final PostService postService;
@@ -30,14 +30,28 @@ public class PostController {
         return categoryService.findAll();
     }
 
+    /**
+     * 게시글 목록 보기
+     */
     @GetMapping("")
     public String getPosts(@RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
-        List<Post> posts = postService.findAll(categoryId);
-        model.addAttribute("posts", posts);
-        model.addAttribute("categoryId", categoryId);
-        return "posts/list";
+        model.addAttribute("posts", postService.findAll(categoryId));
+        model.addAttribute("category", categoryService.findOne(categoryId));
+        return "board/list";
     }
 
+    /**
+     * 게시글 상세 보기
+     */
+    @GetMapping("/view/{postId}")
+    public String view(@PathVariable("postId") Long postId, Model model) {
+        model.addAttribute("post", postService.findOne(postId));
+        return "board/view";
+    }
+
+    /**
+     * 게시글 작성 폼
+     */
     @GetMapping("/write/{categoryId}")
     public String write(@PathVariable("categoryId") Long categoryId, Model model) {
         PostForm postForm = new PostForm();
@@ -45,46 +59,61 @@ public class PostController {
         postForm.setSecretYN('N');
         model.addAttribute("isEdit", false);
         model.addAttribute("postForm", postForm);
-        return "posts/writeForm";
+        return "board/writeForm";
     }
 
+    /**
+     * 게시글 작성
+     */
     @PostMapping("/write")
     public String write(@ModelAttribute PostForm form, RedirectAttributes redirectAttributes) {
-        postService.createPost(form, memberService.findById(1L).orElseThrow());
-        redirectAttributes.addAttribute("categoryId", form.getCategoryId());
-        return "redirect:/posts/{categoryId}";
+        Long postId = postService.createPost(form, memberService.findById(1L).orElseThrow());
+        //pathVarible이 없으면 쿼리 파라미터로 처리
+        redirectAttributes.addAttribute("postId", postId);
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/board/view/{postId}";
     }
 
-    @GetMapping("/view/{postId}")
-    public String view(@PathVariable("postId") Long postId, Model model) {
-        Post post = postService.findOne(postId);
-        model.addAttribute("post", post);
-        return "posts/view";
-    }
-
+    /**
+     * 게시글 수정 폼
+     */
     @GetMapping("/edit/{postId}")
     public String edit(@PathVariable("postId") Long postId, Model model) {
         Post post = postService.findOne(postId);
-        PostForm postForm = new PostForm();
-        postForm.setTitle(post.getTitle());
-        postForm.setContent(post.getContent());
-        model.addAttribute("postForm", postForm);
+        model.addAttribute("postForm", PostForm.fromEntity(post));
         model.addAttribute("postId", postId);
         model.addAttribute("isEdit", true);
-        return "posts/writeForm";
+        return "board/writeForm";
     }
 
-    @PutMapping("/edit/{postId}")
+    /**
+     * 게시글 수정
+     */
+    @PostMapping("/edit/{postId}")
     public String edit(@PathVariable("postId") Long postId, @ModelAttribute PostForm form, RedirectAttributes redirectAttributes) {
-        log.debug("edit : postId={} ", postId);
-        //해당 사용자가 postId author인지 확인 로직 필요
+        //
         validateAuthor();
         postService.updatePost(postId, form);
         redirectAttributes.addAttribute("postId", postId);
-        redirectAttributes.addAttribute("status", true); //쿼리파라미터 바인딩 후 남은 속성 값은 파라미터 형식으로 들어간다.
-        return "redirect:/posts/view/{postId}";
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/board/view/{postId}";
     }
 
+    /**
+     * 게시글 삭제
+     */
+    @GetMapping("/delete/{categoryId}/{postId}")
+    public String delete(@PathVariable("categoryId") String categoryId, @PathVariable("postId") Long postId, RedirectAttributes redirectAttributes) {
+        validateAuthor();
+        postService.deletePost(postId);
+
+        redirectAttributes.addAttribute("categoryId", categoryId);
+        return "redirect:/board";
+    }
+
+    /**
+     * 해당 사용자가 postId author인지 확인
+     */
     private void validateAuthor() {
 
     }
