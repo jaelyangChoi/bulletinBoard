@@ -31,7 +31,7 @@ public class PostController {
     private final CategoryService categoryService;
 
     //검증기 적용. 컨트롤러 호출시마다 호출됨. binder는 매번 생성됨
-    @InitBinder("form")
+    @InitBinder("postForm")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(new PostFormValidator());
     }
@@ -67,8 +67,6 @@ public class PostController {
     public String write(@PathVariable("categoryId") Long categoryId, Model model) {
         PostForm postForm = new PostForm();
         postForm.setCategoryId(categoryId);
-        postForm.setSecretYN('N');
-        model.addAttribute("isEdit", false);
         model.addAttribute("postForm", postForm);
         return "board/writeForm";
     }
@@ -77,14 +75,14 @@ public class PostController {
      * 게시글 작성
      */
     @PostMapping("/write")
-    public String write(@Validated @ModelAttribute("form") PostForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String write(@Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult
+            ,RedirectAttributes redirectAttributes) {
         //검증에 실패하면 다시 입력 폼으로
         if(bindingResult.hasErrors()){
-            log.error("errors: {}", bindingResult);
             return "board/writeForm";
         }
 
-        Long postId = postService.createPost(form, memberService.findById(1L).orElseThrow());
+        Long postId = postService.createPost(postForm, memberService.findById(1L).orElseThrow());
 
         redirectAttributes.addAttribute("postId", postId);
         redirectAttributes.addAttribute("status", true); //pathVariable 이 없으면 쿼리 파라미터로 처리
@@ -99,7 +97,7 @@ public class PostController {
         isValidAuthor(null);
         Post post = postService.findOne(postId);
 
-        model.addAttribute("postForm", PostForm.fromEntity(post, true));
+        model.addAttribute("postForm", PostForm.fromEntity(post));
         model.addAttribute("postId", postId);
         model.addAttribute("isEdit", true);
         return "board/writeForm";
@@ -109,14 +107,17 @@ public class PostController {
      * 게시글 수정
      */
     @PostMapping("/edit/{postId}")
-    public String edit(@PathVariable("postId") Long postId, @Validated @ModelAttribute("form") PostForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String edit(@PathVariable("postId") Long postId, @Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult,
+                       Model model, RedirectAttributes redirectAttributes) {
         //검증에 실패하면 다시 입력 폼으로
         if(bindingResult.hasErrors()){
-            log.error("errors: {}", bindingResult);
+            log.info("edit fail!!!!!!!! errors={}", bindingResult.getFieldError());
+            model.addAttribute("isEdit", true);
             return "board/writeForm";
         }
+
         isValidAuthor(null);
-        postService.updatePost(postId, form);
+        postService.updatePost(postId, postForm);
 
         redirectAttributes.addAttribute("postId", postId);
         redirectAttributes.addAttribute("status", true);

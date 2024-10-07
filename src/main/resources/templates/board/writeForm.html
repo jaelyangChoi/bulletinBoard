@@ -3,11 +3,11 @@
 <body>
 <section>
     <div class="content">
-        <h3 class="mt-5 title" th:text="${postForm.isEdit}?'수정':'새 글 작성'">새 글 작성</h3>
+        <h3 class="mt-5 title" th:text="${isEdit}?'수정':'새 글 작성'">새 글 작성</h3>
         <br>
 
         <!-- 게시글 작성 폼 -->
-        <form th:action="${postForm.isEdit} ? @{'/board/edit/'+ ${postId}} : @{/board/write}" method = "post"
+        <form th:action="${isEdit} ? @{'/board/edit/'+ ${postId}} : @{/board/write}" method = "post"
               th:object="${postForm}">
             <input type="hidden" th:field="*{categoryId}"/>
             <input type="hidden" th:field="*{secretYN}"/>
@@ -15,7 +15,7 @@
                 <label th:for="title" class="form-label">제목</label>
                 <input type="text" th:field="*{title}"
                        class="form-control" th:errorclass="field-error" placeholder="제목을 입력하세요" required>
-                <div class="filed-error" th:errors="*{title}">제목 오류</div>
+                <div class="field-error" th:errors="*{title}">제목 오류</div>
             </div>
 
             <div class="mb-3">
