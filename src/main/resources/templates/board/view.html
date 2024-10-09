@@ -24,11 +24,22 @@
         <hr>
         <!-- 수정, 삭제 버튼 -->
         <div class="d-flex justify-content-end">
-            <a th:href="@{/board/edit/{postId}(postId=${post.id})}" class="btn btn-warning me-2 mr-1">수정</a>
-            <a th:href="@{/board/delete/{categoryId}/{postId}(categoryId = ${post.category.id}, postId=${post.id})}" class="btn btn-danger mr-1">삭제</a>
+            <a th:href="@{/board/edit/{postId}(postId=${post.id})}" class="btn btn-warning me-2 mr-1" onclick="return confirmAuthor();">수정</a>
+            <a th:href="@{/board/delete/{categoryId}/{postId}(categoryId = ${post.category.id}, postId=${post.id})}" class="btn btn-danger mr-1" onclick="return confirmAuthor();">삭제</a>
             <a th:href="@{/board?categoryId={id}(id=${post.category.id})}" class="btn btn-secondary">목록으로</a>
         </div>
     </div>
 </section>
+
+<script>
+    function confirmAuthor() {
+        const isAuthor = true /* 여기에 작성자인지 여부를 체크하는 로직을 추가합니다. */;
+        if (!isAuthor) {
+            alert("작성자가 아닙니다. 로그아웃할 수 없습니다."); // 경고 창 띄우기
+            return false; // 폼 제출 방지
+        }
+        return true; // 폼 제출 허용
+    }
+</script>
 </body>
 </html>

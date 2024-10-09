@@ -6,6 +6,7 @@ import com.example.bulletinBoard.domain.post.Post;
 import com.example.bulletinBoard.domain.category.CategoryService;
 import com.example.bulletinBoard.domain.member.MemberService;
 import com.example.bulletinBoard.domain.post.PostService;
+import com.example.bulletinBoard.web.login.Login;
 import com.example.bulletinBoard.web.login.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class PostController {
      * 게시글 목록 보기
      */
     @GetMapping
-    public String getPosts(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, @RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
+    public String getPosts(@Login Member loginMember, @RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
         model.addAttribute("posts", postService.findAll(categoryId));
         model.addAttribute("category", categoryService.findOne(categoryId));
         model.addAttribute("member", loginMember);
@@ -55,8 +56,9 @@ public class PostController {
      * 게시글 상세 보기
      */
     @GetMapping("/view/{postId}")
-    public String view(@PathVariable("postId") Long postId, Model model) {
+    public String view(@Login Member loginMember, @PathVariable("postId") Long postId, Model model) {
         model.addAttribute("post", postService.findOne(postId));
+        model.addAttribute("member", loginMember);
         return "board/view";
     }
 
@@ -64,10 +66,11 @@ public class PostController {
      * 게시글 작성 폼
      */
     @GetMapping("/write/{categoryId}")
-    public String write(@PathVariable("categoryId") Long categoryId, Model model) {
+    public String write(@Login Member loginMember, @PathVariable("categoryId") Long categoryId, Model model) {
         PostForm postForm = new PostForm();
         postForm.setCategoryId(categoryId);
         model.addAttribute("postForm", postForm);
+        model.addAttribute("member", loginMember);
         return "board/writeForm";
     }
 
@@ -75,10 +78,11 @@ public class PostController {
      * 게시글 작성
      */
     @PostMapping("/write")
-    public String write(@Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult
-            , RedirectAttributes redirectAttributes) {
+    public String write(@Login Member loginMember, @Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult
+            , RedirectAttributes redirectAttributes, Model model) {
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
+            model.addAttribute("member", loginMember);
             return "board/writeForm";
         }
 
@@ -93,13 +97,14 @@ public class PostController {
      * 게시글 수정 폼
      */
     @GetMapping("/edit/{postId}")
-    public String edit(@PathVariable("postId") Long postId, Model model) {
-        isValidAuthor(null);
+    public String edit(@Login Member loginMember, @PathVariable("postId") Long postId, Model model) {
+        isValidAuthor(loginMember, postId);
         Post post = postService.findOne(postId);
 
         model.addAttribute("postForm", PostForm.fromEntity(post));
         model.addAttribute("postId", postId);
         model.addAttribute("isEdit", true);
+        model.addAttribute("member", loginMember);
         return "board/writeForm";
     }
 
@@ -107,16 +112,17 @@ public class PostController {
      * 게시글 수정
      */
     @PostMapping("/edit/{postId}")
-    public String edit(@PathVariable("postId") Long postId, @Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult,
+    public String edit(@Login Member loginMember, @PathVariable("postId") Long postId, @Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult,
                        Model model, RedirectAttributes redirectAttributes) {
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             log.info("edit fail!!!!!!!! errors={}", bindingResult.getFieldError());
             model.addAttribute("isEdit", true);
+            model.addAttribute("member", loginMember);
             return "board/writeForm";
         }
 
-        isValidAuthor(null);
+        isValidAuthor(loginMember, postId);
         postService.updatePost(postId, postForm);
 
         redirectAttributes.addAttribute("postId", postId);
@@ -128,8 +134,7 @@ public class PostController {
      * 게시글 삭제
      */
     @GetMapping("/delete/{categoryId}/{postId}")
-    public String delete(@PathVariable("categoryId") String categoryId, @PathVariable("postId") Long postId, RedirectAttributes redirectAttributes) {
-        isValidAuthor(null);
+    public String delete(@Login Member loginMember, @PathVariable("categoryId") String categoryId, @PathVariable("postId") Long postId, RedirectAttributes redirectAttributes) {
         postService.deletePost(postId);
 
         redirectAttributes.addAttribute("categoryId", categoryId);
@@ -140,8 +145,9 @@ public class PostController {
     /**
      * 해당 사용자가 postId author인지 확인
      */
-    private void isValidAuthor(Member member) {
-
+    private boolean isValidAuthor(Member loginMember, Long postId) {
+        Post post = postService.findOne(postId);
+        return post.getAuthor().getId().equals(loginMember.getId());
     }
 }
 
