@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>4xx 오류</h2>
+    </div>
+    <div>
+        <p>잘못된 요청입니다.</p>
+    </div>
+    <ul>
+        <li>오류 정보</li>
+        <ul>
+            <li th:text="|timestamp: ${timestamp}|"></li>
+            <li th:text="|path: ${path}|"></li>
+            <li th:text="|status: ${status}|"></li>
+        </ul>
+        </li>
+    </ul>
+    <hr class="my-4">
+</div> <!-- /container -->
+</body>
+</html>
