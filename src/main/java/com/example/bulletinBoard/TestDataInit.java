@@ -29,7 +29,7 @@ public class TestDataInit {
     public void initData(){
         log.info("============== test data init ==============");
 
-        Member member = new Member("admin", "cjl2076@naver.com", "admin", MemberRole.ADMIN);
+        Member member = new Member("관리자", "admin@gmail.com", "admin", MemberRole.ADMIN);
         Category category1 = new Category("공지", "공지 사항");
         Category category2 = new Category("자유 게시판", "자유 게시판");
         memberRepository.save(member);

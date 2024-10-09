@@ -33,6 +33,8 @@
                 </div>
             </nav>
 
+            <h4 class="mb-3" th:if="${member}" th:text="|${member.name}|님, 환영합니다.">로그인 사용자 이름</h4>
+
             <!-- Main Content -->
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4" role="main">
                 <div th:replace="${section}">

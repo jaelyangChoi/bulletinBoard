@@ -42,7 +42,6 @@ public class LoginController {
 
         //세션에 로그인 회원 정보 저장
         session.setAttribute("loginMember", loginMember.get());
-
         return "redirect:/board";
     }
 }
