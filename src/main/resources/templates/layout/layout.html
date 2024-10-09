@@ -33,10 +33,23 @@
                 </div>
             </nav>
 
-            <h4 class="mb-3" th:if="${member}" th:text="|${member.name}님, 환영합니다.|">로그인 사용자 이름</h4>
-
             <!-- Main Content -->
             <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4" role="main">
+                <nav class="navbar">
+                    <ul class="navbar-nav d-flex align-items-center">
+                        <li class="nav-item" th:if="${member}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-user mr-1" th:text="|로그인: ${member.name}|">로그인 사용자 이름</span>
+                                <form th:action="@{/logout}" method="post" class="mb-0">
+                                    <button type="submit" class="btn btn-info">로그아웃</button>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="nav-item" th:unless="${member}">
+                            <a class="btn btn-info" th:href="@{/login}">로그인</a>
+                        </li>
+                    </ul>
+                </nav>
                 <div th:replace="${section}">
                     <p>여기에 컨텐츠가 들어갑니다.</p>
                 </div>
@@ -52,6 +65,13 @@
     </footer>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const loginButton = document.getElementById("loginBtn");
+        const currentUrl = window.location.href; // 현재 URL 가져오기
+        loginButton.href += '?redirectURL=' + encodeURIComponent(currentUrl); // 쿼리 파라미터로 추가
+    });
+</script>
 <!-- Bootstrap JS and dependencies -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>

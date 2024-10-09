@@ -76,6 +76,24 @@ header {
     color: white;
 }
 
+.navbar {
+    padding: 1px;
+}
+.navbar-brand {
+    color: white;
+}
+.navbar-nav {
+    display: flex; /* Flexbox를 사용하여 수평 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    margin-left: auto; /* 우측 정렬 */
+}
+.nav-item {
+    margin-left: 15px;
+}
+.nav-user {
+    color: #007bff;
+}
+
 /* 메인 컨텐츠 */
 main {
     padding: 20px;
@@ -91,6 +109,7 @@ footer {
     text-align: center;
     margin-top: auto; /* 푸터가 항상 페이지 하단에 위치 */
 }
+
 
 /* 모바일 대응 */
 @media (max-width: 768px) {

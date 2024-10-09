@@ -6,6 +6,7 @@ import com.example.bulletinBoard.domain.post.Post;
 import com.example.bulletinBoard.domain.category.CategoryService;
 import com.example.bulletinBoard.domain.member.MemberService;
 import com.example.bulletinBoard.domain.post.PostService;
+import com.example.bulletinBoard.web.login.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -42,10 +43,11 @@ public class PostController {
     /**
      * 게시글 목록 보기
      */
-    @GetMapping("")
-    public String getPosts(@RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
+    @GetMapping
+    public String getPosts(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member loginMember, @RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
         model.addAttribute("posts", postService.findAll(categoryId));
         model.addAttribute("category", categoryService.findOne(categoryId));
+        model.addAttribute("member", loginMember);
         return "board/list";
     }
 
@@ -74,9 +76,9 @@ public class PostController {
      */
     @PostMapping("/write")
     public String write(@Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult
-            ,RedirectAttributes redirectAttributes) {
+            , RedirectAttributes redirectAttributes) {
         //검증에 실패하면 다시 입력 폼으로
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "board/writeForm";
         }
 
@@ -108,7 +110,7 @@ public class PostController {
     public String edit(@PathVariable("postId") Long postId, @Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult,
                        Model model, RedirectAttributes redirectAttributes) {
         //검증에 실패하면 다시 입력 폼으로
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             log.info("edit fail!!!!!!!! errors={}", bindingResult.getFieldError());
             model.addAttribute("isEdit", true);
             return "board/writeForm";

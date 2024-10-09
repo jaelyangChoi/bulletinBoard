@@ -1,13 +1,11 @@
 package com.example.bulletinBoard.web.login;
 
 import com.example.bulletinBoard.domain.member.Member;
-import com.example.bulletinBoard.domain.member.MemberRepository;
 import com.example.bulletinBoard.domain.member.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,20 +14,19 @@ import java.util.Optional;
 
 
 @RequiredArgsConstructor
-@RequestMapping("/login")
 @Controller
 public class LoginController {
 
     private final MemberService memberService;
 
-    @GetMapping
+    @GetMapping("/login")
     public String login(@ModelAttribute("loginForm") LoginForm form) {
         return "login/loginForm";
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult, HttpServletRequest request
-            , @RequestParam(defaultValue = "/board") String redirectURL, Model model) {
+            , @RequestParam(defaultValue = "/board") String redirectURL) {
         if (bindingResult.hasErrors()) {
             return "login/loginForm";
         }
@@ -50,11 +47,11 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request,@RequestParam(defaultValue = "/board") String redirectURL) {
         HttpSession session = request.getSession(false); //기존에 없으면 null 반환
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/board";
+        return "redirect:" + redirectURL;
     }
 }
