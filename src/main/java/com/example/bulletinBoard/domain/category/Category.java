@@ -1,4 +1,4 @@
-package com.example.bulletinBoard.domain;
+package com.example.bulletinBoard.domain.category;
 
 import jakarta.persistence.*;
 import lombok.Getter;

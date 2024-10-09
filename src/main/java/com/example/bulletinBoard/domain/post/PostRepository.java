@@ -1,6 +1,5 @@
-package com.example.bulletinBoard.repository;
+package com.example.bulletinBoard.domain.post;
 
-import com.example.bulletinBoard.domain.Post;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,9 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.form.MemberForm;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.repository.MemberRepository;
+import com.example.bulletinBoard.web.member.MemberForm;
+import com.example.bulletinBoard.domain.member.Member;
+import com.example.bulletinBoard.domain.member.MemberRepository;
+import com.example.bulletinBoard.domain.member.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +15,8 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class MemberServiceTest {
 
-    @Autowired MemberService memberService;
+    @Autowired
+    MemberService memberService;
     @Autowired MemberRepository memberRepository;
 
     @Test

@@ -1,6 +1,5 @@
-package com.example.bulletinBoard.repository;
+package com.example.bulletinBoard.domain.category;
 
-import com.example.bulletinBoard.domain.Category;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;

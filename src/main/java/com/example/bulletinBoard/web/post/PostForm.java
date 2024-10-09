@@ -1,8 +1,8 @@
-package com.example.bulletinBoard.controller.form;
+package com.example.bulletinBoard.web.post;
 
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.domain.Post;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.member.Member;
+import com.example.bulletinBoard.domain.post.Post;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

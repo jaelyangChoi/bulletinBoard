@@ -1,8 +1,9 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.form.CategoryForm;
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.repository.CategoryRepository;
+import com.example.bulletinBoard.web.category.CategoryForm;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.category.CategoryService;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Transactional
 class CategoryServiceTest {
 
-    @Autowired CategoryService categoryService;
+    @Autowired
+    CategoryService categoryService;
     @Autowired CategoryRepository categoryRepository;
     @Autowired EntityManager em;
 

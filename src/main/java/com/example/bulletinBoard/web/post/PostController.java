@@ -1,13 +1,11 @@
-package com.example.bulletinBoard.controller;
+package com.example.bulletinBoard.web.post;
 
-import com.example.bulletinBoard.controller.form.PostForm;
-import com.example.bulletinBoard.controller.validator.PostFormValidator;
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.domain.Post;
-import com.example.bulletinBoard.service.CategoryService;
-import com.example.bulletinBoard.service.MemberService;
-import com.example.bulletinBoard.service.PostService;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.member.Member;
+import com.example.bulletinBoard.domain.post.Post;
+import com.example.bulletinBoard.domain.category.CategoryService;
+import com.example.bulletinBoard.domain.member.MemberService;
+import com.example.bulletinBoard.domain.post.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

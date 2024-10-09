@@ -1,12 +1,13 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.controller.form.PostForm;
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.domain.MemberRole;
-import com.example.bulletinBoard.domain.Post;
-import com.example.bulletinBoard.repository.PostRepository;
-import com.example.bulletinBoard.repository.PostSearch;
+import com.example.bulletinBoard.web.post.PostForm;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.member.Member;
+import com.example.bulletinBoard.domain.member.MemberRole;
+import com.example.bulletinBoard.domain.post.Post;
+import com.example.bulletinBoard.domain.post.PostRepository;
+import com.example.bulletinBoard.domain.post.PostSearch;
+import com.example.bulletinBoard.domain.post.PostService;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ import static org.assertj.core.api.Assertions.*;
 @Transactional
 class PostServiceTest {
 
-    @Autowired PostService postService;
+    @Autowired
+    PostService postService;
     @Autowired PostRepository postRepository;
     @Autowired EntityManager em;
 

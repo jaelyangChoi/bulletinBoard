@@ -1,6 +1,5 @@
-package com.example.bulletinBoard.repository;
+package com.example.bulletinBoard.domain.member;
 
-import com.example.bulletinBoard.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,9 +22,9 @@ public class MemberRepository {
         return Optional.ofNullable(member);
     }
 
-    public List<Member> findByEmail(String email) {
+    public Member findByEmail(String email) {
         return em.createQuery("select m from Member m where m.email = :email", Member.class)
                 .setParameter("email", email)
-                .getResultList();
+                .getSingleResult();
     }
 }

@@ -1,9 +1,7 @@
-package com.example.bulletinBoard.controller.validator;
+package com.example.bulletinBoard.web.post;
 
-import com.example.bulletinBoard.controller.form.PostForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.Validator;
 
 @Slf4j

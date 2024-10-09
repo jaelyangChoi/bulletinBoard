@@ -1,16 +1,14 @@
-package com.example.bulletinBoard.service;
+package com.example.bulletinBoard.domain.post;
 
-import com.example.bulletinBoard.controller.form.PostForm;
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.domain.Post;
-import com.example.bulletinBoard.repository.*;
+import com.example.bulletinBoard.web.post.PostForm;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

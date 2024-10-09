@@ -1,15 +1,16 @@
-package com.example.bulletinBoard.service;
+package com.example.bulletinBoard.domain.member;
 
-import com.example.bulletinBoard.controller.form.MemberForm;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.repository.MemberRepository;
+import com.example.bulletinBoard.web.member.MemberForm;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -35,9 +36,26 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
+
+    @Transactional(readOnly = true)
+    public Optional<Member> login(String email, String password) {
+        Member findMember;
+        try {
+            findMember = memberRepository.findByEmail(email);
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
+
+        if (!findMember.getPassword().equals(password)) {
+            log.info("Invalid password");
+            return Optional.empty();
+        }
+        return Optional.of(findMember);
+    }
+
     private void validateDuplicateMember(MemberForm memberFrom) {
-        List<Member> findMembers = memberRepository.findByEmail(memberFrom.getEmail());
-        if(!findMembers.isEmpty())
+        Member findMember = memberRepository.findByEmail(memberFrom.getEmail());
+        if (findMember != null)
             throw new IllegalStateException("해당 이메일로 가입된 회원이 존재합니다.");
     }
 }

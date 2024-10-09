@@ -1,12 +1,12 @@
 package com.example.bulletinBoard;
 
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.domain.MemberRole;
-import com.example.bulletinBoard.domain.Post;
-import com.example.bulletinBoard.repository.CategoryRepository;
-import com.example.bulletinBoard.repository.MemberRepository;
-import com.example.bulletinBoard.repository.PostRepository;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.member.Member;
+import com.example.bulletinBoard.domain.member.MemberRole;
+import com.example.bulletinBoard.domain.post.Post;
+import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.member.MemberRepository;
+import com.example.bulletinBoard.domain.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

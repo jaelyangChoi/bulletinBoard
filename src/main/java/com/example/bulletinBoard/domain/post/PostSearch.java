@@ -1,6 +1,6 @@
-package com.example.bulletinBoard.repository;
+package com.example.bulletinBoard.domain.post;
 
-import com.example.bulletinBoard.domain.Category;
+import com.example.bulletinBoard.domain.category.Category;
 import lombok.Getter;
 import lombok.Setter;
 

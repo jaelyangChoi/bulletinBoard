@@ -1,6 +1,8 @@
-package com.example.bulletinBoard.domain;
+package com.example.bulletinBoard.domain.post;
 
-import com.example.bulletinBoard.repository.PostUpdateDto;
+import com.example.bulletinBoard.domain.BaseEntity;
+import com.example.bulletinBoard.domain.category.Category;
+import com.example.bulletinBoard.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 

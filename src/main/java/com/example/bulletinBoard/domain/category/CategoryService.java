@@ -1,8 +1,6 @@
-package com.example.bulletinBoard.service;
+package com.example.bulletinBoard.domain.category;
 
-import com.example.bulletinBoard.controller.form.CategoryForm;
-import com.example.bulletinBoard.domain.Category;
-import com.example.bulletinBoard.repository.CategoryRepository;
+import com.example.bulletinBoard.web.category.CategoryForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

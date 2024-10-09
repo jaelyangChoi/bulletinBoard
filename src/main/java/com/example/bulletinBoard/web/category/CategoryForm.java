@@ -1,6 +1,6 @@
-package com.example.bulletinBoard.controller.form;
+package com.example.bulletinBoard.web.category;
 
-import com.example.bulletinBoard.domain.Category;
+import com.example.bulletinBoard.domain.category.Category;
 import lombok.Getter;
 import lombok.Setter;
 

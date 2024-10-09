@@ -26,7 +26,7 @@
         <div class="d-flex justify-content-end">
             <a th:href="@{/board/edit/{postId}(postId=${post.id})}" class="btn btn-warning me-2 mr-1">수정</a>
             <a th:href="@{/board/delete/{categoryId}/{postId}(categoryId = ${post.category.id}, postId=${post.id})}" class="btn btn-danger mr-1">삭제</a>
-            <a th:href="@{/board/list}" class="btn btn-secondary">목록으로</a>
+            <a th:href="@{/board?categoryId={id}(id=${post.category.id})}" class="btn btn-secondary">목록으로</a>
         </div>
     </div>
 </section>

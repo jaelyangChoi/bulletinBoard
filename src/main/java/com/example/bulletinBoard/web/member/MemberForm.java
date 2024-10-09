@@ -1,7 +1,7 @@
-package com.example.bulletinBoard.controller.form;
+package com.example.bulletinBoard.web.member;
 
-import com.example.bulletinBoard.domain.Member;
-import com.example.bulletinBoard.domain.MemberRole;
+import com.example.bulletinBoard.domain.member.Member;
+import com.example.bulletinBoard.domain.member.MemberRole;
 import lombok.Getter;
 import lombok.Setter;
 
