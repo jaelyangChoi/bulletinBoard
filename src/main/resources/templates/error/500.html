@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>400 Bad Request</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" /> <!-- 필요에 따라 CSS 링크 -->
+    <title>500 Internal Server Error</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
 <div class="container">
-    <h1>잘못된 요청입니다 (404 Bad Request)</h1>
-    <p>요청이 올바르지 않습니다. 입력한 정보가 유효하지 않습니다.</p>
+    <h1>서버 오류가 발생했습니다 (500 Internal Server Error)</h1>
+    <p>서버에서 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.</p>
     <p th:if="${errorMessage}">
         <strong>에러 메시지:</strong> <span th:text="${errorMessage}">에러 메시지가 여기 표시됩니다.</span>
     </p>
