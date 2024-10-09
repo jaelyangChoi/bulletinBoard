@@ -1,13 +1,12 @@
 package com.example.bulletinBoard.domain.member;
 
 import com.example.bulletinBoard.web.member.MemberForm;
-import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -42,7 +41,8 @@ public class MemberService {
         Member findMember;
         try {
             findMember = memberRepository.findByEmail(email);
-        } catch (NoResultException e) {
+        } catch (EmptyResultDataAccessException e) {
+            log.info("해당 이메일로 회원 존재하지 않음");
             return Optional.empty();
         }
 

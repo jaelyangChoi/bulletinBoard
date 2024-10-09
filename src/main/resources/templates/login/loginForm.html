@@ -26,7 +26,7 @@
 <div class="login-container">
     <h1 class="text-center mb-4" style="color: #007bff;">게시판</h1>
     <h2 class="text-center">로그인</h2>
-    <form action="#" th:action="@{/login}" th:object="${loginForm}" method="post">
+    <form action="#" th:object="${loginForm}" method="post">
         <div class="form-group">
             <label th:for="email">이메일</label>
             <input type="text" th:field="*{email}"

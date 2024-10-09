@@ -23,11 +23,10 @@ public class HomeController {
         //세션에 회원이 없으면 home 으로 이동
         if (loginMember == null) {
             model.addAttribute("loginForm", new LoginForm());
-            return "home";
+            return "redirect:/login";
         }
 
         //세션이 유지되면 로그인으로 이동
-        model.addAttribute("member", loginMember);
         return "redirect:" + redirectURL;
     }
 

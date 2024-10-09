@@ -7,12 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -24,17 +22,23 @@ public class LoginController {
 
     private final MemberService memberService;
 
+    @GetMapping
+    public String login(@ModelAttribute("loginForm") LoginForm form) {
+        return "login/loginForm";
+    }
+
     @PostMapping
-    public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult, HttpServletRequest request) {
+    public String login(@Validated @ModelAttribute("loginForm") LoginForm form, BindingResult bindingResult, HttpServletRequest request
+            , @RequestParam(defaultValue = "/board") String redirectURL, Model model) {
         if (bindingResult.hasErrors()) {
-            return "home";
+            return "login/loginForm";
         }
 
         Optional<Member> loginMember = memberService.login(form.getEmail(), form.getPassword());
 
         if (loginMember.isEmpty()) {
             bindingResult.reject("loginFail", null);
-            return "home";
+            return "login/loginForm";
         }
 
         //로그인 성공 처리
@@ -42,6 +46,15 @@ public class LoginController {
 
         //세션에 로그인 회원 정보 저장
         session.setAttribute("loginMember", loginMember.get());
+        return "redirect:" + redirectURL;
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false); //기존에 없으면 null 반환
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/board";
     }
 }
