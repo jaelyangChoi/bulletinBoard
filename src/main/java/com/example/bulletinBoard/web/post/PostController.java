@@ -5,11 +5,15 @@ import com.example.bulletinBoard.domain.member.Member;
 import com.example.bulletinBoard.domain.post.Post;
 import com.example.bulletinBoard.domain.category.CategoryService;
 import com.example.bulletinBoard.domain.member.MemberService;
+import com.example.bulletinBoard.domain.post.PostRepository;
 import com.example.bulletinBoard.domain.post.PostService;
 import com.example.bulletinBoard.web.login.Login;
 import com.example.bulletinBoard.web.login.SessionConst;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +31,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final PostRepository postRepository;
     private final MemberService memberService;
     private final CategoryService categoryService;
 
@@ -45,10 +50,16 @@ public class PostController {
      * 게시글 목록 보기
      */
     @GetMapping
-    public String getPosts(@Login Member loginMember, @RequestParam(required = false, defaultValue = "1") Long categoryId, Model model) {
-        model.addAttribute("posts", postService.findAll(categoryId));
+    public String getPosts(@Login Member loginMember, @RequestParam(required = false, defaultValue = "1") Long categoryId,
+                           @PageableDefault(size = 10, sort="createdAt") Pageable pageable, Model model) {
+        log.info("pageable = {}", pageable);
+        Page<Post> page = postRepository.findAllByCategoryId(categoryId, pageable);
+        List<Post> content = page.getContent();
+
+        model.addAttribute("posts", content);
         model.addAttribute("category", categoryService.findOne(categoryId));
         model.addAttribute("member", loginMember);
+        model.addAttribute("page", page);
         return "board/list";
     }
 

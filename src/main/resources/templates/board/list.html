@@ -34,25 +34,25 @@
         </tbody>
     </table>
 
-    <!-- 페이지네이션
+    <!-- 페이지네이션 -->
     <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${page.number == 1} ? 'disabled'">
-                <a class="page-link" th:href="@{/board/list(page=${page.number - 1})}" aria-label="Previous">
+                <a class="page-link" th:href="@{/board?categoryId={id}(id=${categoryId.id})(page=${page.number - 1})}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
             <li class="page-item" th:each="i : ${#numbers.sequence(1, page.totalPages)}"
                 th:classappend="${i == page.number} ? 'active'">
-                <a class="page-link" th:href="@{/board/list(page=${i})}" th:text="${i}">1</a>
+                <a class="page-link" th:href="@{/board?categoryId={id}(id=${categoryId.id})(page=${i})}" th:text="${i}">1</a>
             </li>
             <li class="page-item" th:classappend="${page.number == page.totalPages} ? 'disabled'">
-                <a class="page-link" th:href="@{/board/list(page=${page.number + 1})}" aria-label="Next">
+                <a class="page-link" th:href="@{/board?categoryId={id}(id=${categoryId.id})(page=${page.number + 1})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
         </ul>
-    </nav>-->
+    </nav>
 
 </section>
 </body>
