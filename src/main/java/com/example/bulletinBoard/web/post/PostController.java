@@ -98,6 +98,9 @@ public class PostController {
      */
     @GetMapping("/edit/{postId}")
     public String edit(@Login Member loginMember, @PathVariable("postId") Long postId, Model model) {
+        String returnUrl = validateLoginMember(loginMember, postId);
+        if (returnUrl != null) return returnUrl;
+
         isValidAuthor(loginMember, postId);
         Post post = postService.findOne(postId);
 
@@ -114,6 +117,9 @@ public class PostController {
     @PostMapping("/edit/{postId}")
     public String edit(@Login Member loginMember, @PathVariable("postId") Long postId, @Validated @ModelAttribute("postForm") PostForm postForm, BindingResult bindingResult,
                        Model model, RedirectAttributes redirectAttributes) {
+        String returnUrl = validateLoginMember(loginMember, postId);
+        if (returnUrl != null) return returnUrl;
+
         //검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             log.info("edit fail!!!!!!!! errors={}", bindingResult.getFieldError());
@@ -121,8 +127,6 @@ public class PostController {
             model.addAttribute("member", loginMember);
             return "board/writeForm";
         }
-
-        isValidAuthor(loginMember, postId);
         postService.updatePost(postId, postForm);
 
         redirectAttributes.addAttribute("postId", postId);
@@ -142,11 +146,23 @@ public class PostController {
     }
 
 
+
     /**
      * 해당 사용자가 postId author인지 확인
      */
+    private String validateLoginMember(Member loginMember, Long postId) {
+        log.info("loginMember = {}", loginMember);
+        if(loginMember == null)
+            return "redirect:/login";
+        if(!isValidAuthor(loginMember, postId))
+            return "redirect:/board";
+        return null;
+    }
+
     private boolean isValidAuthor(Member loginMember, Long postId) {
         Post post = postService.findOne(postId);
+        log.info("게시글 작성자: {}", post.getAuthor().getId());
+        log.info("로그인 사용자: {}", loginMember.getId());
         return post.getAuthor().getId().equals(loginMember.getId());
     }
 }
