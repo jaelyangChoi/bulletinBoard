@@ -1,30 +1,7 @@
 package com.example.bulletinBoard.domain.member;
 
-import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
-
-@Repository
-@RequiredArgsConstructor
-public class MemberRepository {
-
-    private final EntityManager em;
-
-    public void save(Member member) {
-        em.persist(member);
-    }
-
-    public Optional<Member> findById(Long id) {
-        Member member = em.find(Member.class, id);
-        return Optional.ofNullable(member);
-    }
-
-    public Member findByEmail(String email) {
-        return em.createQuery("select m from Member m where m.email = :email", Member.class)
-                .setParameter("email", email)
-                .getSingleResult();
-    }
+public interface MemberRepository extends JpaRepository<Member, Long> {
+    Member findByEmail(String email);
 }
