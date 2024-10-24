@@ -2,7 +2,7 @@ package com.example.bulletinBoard.domain.post;
 
 import com.example.bulletinBoard.web.post.PostForm;
 import com.example.bulletinBoard.domain.category.Category;
-import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.category.CategoryJpaRepository;
 import com.example.bulletinBoard.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class PostService {
     private final PostRepository postRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryJpaRepository categoryRepository;
 
     @Transactional
     public Long createPost(PostForm form, Member member) {

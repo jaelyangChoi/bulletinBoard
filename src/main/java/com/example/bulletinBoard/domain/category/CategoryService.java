@@ -17,7 +17,7 @@ ADMIN 사용자는 카테고리를 관리할 수 있다.
 @RequiredArgsConstructor
 public class CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryJpaRepository categoryRepository;
 
     public Long createCategory(CategoryForm form) {
         Category category = form.toEntity();

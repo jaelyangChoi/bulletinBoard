@@ -1,6 +1,6 @@
 package com.example.bulletinBoard;
 
-import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.category.CategoryJpaRepository;
 import com.example.bulletinBoard.domain.member.MemberJpaRepository;
 import com.example.bulletinBoard.domain.post.PostRepository;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,7 @@ public class BulletinBoardApplication {
 
     @Bean
     @Profile("local")
-    public TestDataInit testDataInit(MemberJpaRepository memberRepository, CategoryRepository categoryRepository, PostRepository postRepository) {
+    public TestDataInit testDataInit(MemberJpaRepository memberRepository, CategoryJpaRepository categoryRepository, PostRepository postRepository) {
         return new TestDataInit(memberRepository, categoryRepository, postRepository);
     }
 }

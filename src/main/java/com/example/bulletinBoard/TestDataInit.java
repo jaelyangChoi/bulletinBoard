@@ -4,7 +4,7 @@ import com.example.bulletinBoard.domain.category.Category;
 import com.example.bulletinBoard.domain.member.Member;
 import com.example.bulletinBoard.domain.member.MemberRole;
 import com.example.bulletinBoard.domain.post.Post;
-import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.category.CategoryJpaRepository;
 import com.example.bulletinBoard.domain.member.MemberJpaRepository;
 import com.example.bulletinBoard.domain.post.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestDataInit {
 
     private final MemberJpaRepository memberRepository;
-    private final CategoryRepository categoryRepository;
+    private final CategoryJpaRepository categoryRepository;
     private final PostRepository postRepository;
 
     /**

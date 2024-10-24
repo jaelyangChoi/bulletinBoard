@@ -2,7 +2,7 @@ package com.example.bulletinBoard.service;
 
 import com.example.bulletinBoard.web.category.CategoryForm;
 import com.example.bulletinBoard.domain.category.Category;
-import com.example.bulletinBoard.domain.category.CategoryRepository;
+import com.example.bulletinBoard.domain.category.CategoryJpaRepository;
 import com.example.bulletinBoard.domain.category.CategoryService;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,8 @@ class CategoryServiceTest {
 
     @Autowired
     CategoryService categoryService;
-    @Autowired CategoryRepository categoryRepository;
+    @Autowired
+    CategoryJpaRepository categoryRepository;
     @Autowired EntityManager em;
 
     @Test
