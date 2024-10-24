@@ -145,8 +145,6 @@ public class PostController {
         return "redirect:/board";
     }
 
-
-
     /**
      * 해당 사용자가 postId author인지 확인
      */
