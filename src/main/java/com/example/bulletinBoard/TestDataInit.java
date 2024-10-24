@@ -26,19 +26,23 @@ public class TestDataInit {
      */
     @Transactional
     @EventListener(ApplicationReadyEvent.class)
-    public void initData(){
+    public void initData() {
         log.info("============== test data init ==============");
 
-        Member member = new Member("관리자", "admin@gmail.com", "admin", MemberRole.ADMIN);
+        Member adminUser = new Member("관리자", "admin@gmail.com", "admin", MemberRole.ADMIN);
         Category category1 = new Category("공지", "공지 사항");
         Category category2 = new Category("자유 게시판", "자유 게시판");
-        memberRepository.save(member);
+        memberRepository.save(adminUser);
         categoryRepository.save(category1);
         categoryRepository.save(category2);
 
-        Post post1 = new Post("이용 가이드", "이용 가이드입니다.", member, category1, 'N');
-        Post post2 = new Post("공지 사항", "공지 사항입니다.", member, category1, 'N');
+        Post post1 = new Post("이용 가이드", "이용 가이드입니다.", adminUser, category1, 'N');
+        Post post2 = new Post("공지 사항", "공지 사항입니다.", adminUser, category1, 'N');
         postRepository.save(post1);
         postRepository.save(post2);
+
+        for (int i = 0; i < 100; i++) {
+            postRepository.save(new Post("sample " + i, "sample", adminUser, category2, 'N'));
+        }
     }
 }
