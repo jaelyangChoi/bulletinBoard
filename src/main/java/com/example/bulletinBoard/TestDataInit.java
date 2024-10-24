@@ -6,7 +6,7 @@ import com.example.bulletinBoard.domain.member.MemberRole;
 import com.example.bulletinBoard.domain.post.Post;
 import com.example.bulletinBoard.domain.category.CategoryJpaRepository;
 import com.example.bulletinBoard.domain.member.MemberJpaRepository;
-import com.example.bulletinBoard.domain.post.PostRepository;
+import com.example.bulletinBoard.domain.post.PostJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -19,7 +19,7 @@ public class TestDataInit {
 
     private final MemberJpaRepository memberRepository;
     private final CategoryJpaRepository categoryRepository;
-    private final PostRepository postRepository;
+    private final PostJpaRepository postRepository;
 
     /**
      * 확인용 초기 데이터 추가

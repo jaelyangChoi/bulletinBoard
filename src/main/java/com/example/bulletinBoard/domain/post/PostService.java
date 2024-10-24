@@ -1,5 +1,6 @@
 package com.example.bulletinBoard.domain.post;
 
+import com.example.bulletinBoard.domain.category.CategoryRepository;
 import com.example.bulletinBoard.web.post.PostForm;
 import com.example.bulletinBoard.domain.category.Category;
 import com.example.bulletinBoard.domain.category.CategoryJpaRepository;
@@ -15,7 +16,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class PostService {
     private final PostRepository postRepository;
-    private final CategoryJpaRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Transactional
     public Long createPost(PostForm form, Member member) {
@@ -50,7 +51,7 @@ public class PostService {
     }
 
     public List<Post> findAll(Long categoryId) {
-        return postRepository.findAll(categoryId);
+        return postRepository.findAllByCategoryId(categoryId);
     }
 
     public List<Post> findByCondition(PostSearch postSearch) {
@@ -58,7 +59,7 @@ public class PostService {
     }
 
     public List<Post> findByMember(Long memberId) {
-        return postRepository.findByAuthor(memberId);
+        return postRepository.findByAuthorId(memberId);
     }
 
     private Category baseValidation(PostForm form) {

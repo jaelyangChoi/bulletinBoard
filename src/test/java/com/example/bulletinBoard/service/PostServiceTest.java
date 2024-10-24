@@ -1,6 +1,5 @@
 package com.example.bulletinBoard.service;
 
-import com.example.bulletinBoard.web.post.PostForm;
 import com.example.bulletinBoard.domain.category.Category;
 import com.example.bulletinBoard.domain.member.Member;
 import com.example.bulletinBoard.domain.member.MemberRole;
@@ -8,16 +7,17 @@ import com.example.bulletinBoard.domain.post.Post;
 import com.example.bulletinBoard.domain.post.PostRepository;
 import com.example.bulletinBoard.domain.post.PostSearch;
 import com.example.bulletinBoard.domain.post.PostService;
+import com.example.bulletinBoard.web.post.PostForm;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @Transactional
@@ -25,7 +25,8 @@ class PostServiceTest {
 
     @Autowired
     PostService postService;
-    @Autowired PostRepository postRepository;
+    @Autowired
+    PostRepository postRepository;
     @Autowired EntityManager em;
 
     @Test
